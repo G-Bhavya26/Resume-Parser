@@ -22,9 +22,3 @@ Thumbs.db
 # VS Code / IDE
 .vscode/
 .idea/
-
-# Large binaries or build outputs
-*.pdf
-*.docx
-*.zip
-*.tar.gz
