@@ -1,22 +1,23 @@
-import os
 from celery import Celery
+import os
 
-# Uses Redis as the broker and result backend. Ensure Redis is running locally on port 6379.
+# We will use Redis as the message broker
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
 celery_app = Celery(
-    "rps_worker",
+    "crms_resume_worker",
     broker=REDIS_URL,
-    backend=REDIS_URL
+    backend=REDIS_URL,
+    include=['app.worker.tasks']
 )
 
+# Optional configuration to make tasks more reliable
 celery_app.conf.update(
-    task_serializer="json",
-    accept_content=["json"],
-    result_serializer="json",
-    timezone="UTC",
+    task_serializer='json',
+    accept_content=['json'],
+    result_serializer='json',
+    timezone='UTC',
     enable_utc=True,
+    task_track_started=True,
+    # In a real heavy ML workload, you'd want rate limits or concurrency controls here
 )
-
-# Optional: define task routing if we scale to multiple queues for NER vs Embeddings
-# celery_app.conf.task_routes = {'app.worker.tasks.*': {'queue': 'ml_queue'}}

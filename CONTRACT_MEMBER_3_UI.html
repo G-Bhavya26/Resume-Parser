@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member 3 (UI) - Integration Contract</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            color: #2563eb;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-weight: bold;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border-left: 5px solid #2563eb;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .section {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>INTEGRATION CONTRACT</h1>
+        <div class="subtitle">For: Member 3 (Lead Integrator / UI Architect)</div>
+        <div class="subtitle" style="font-size: 0.8rem; color: #94a3b8; font-weight: normal;">Provided by: Member 1
+            (Systems Engineer)</div>
+    </div>
+
+    <div class="section">
+        <h2>1. Your Objective</h2>
+        <p>You must build the React dashboard. To do this without waiting for my backend, use the JSON structure below
+            as your temporary <i>"Mock Data"</i>. When my API goes live, it will return this exact shape.</p>
+    </div>
+
+    <div class="section" style="margin-top: 20px;">
+        <h2>2. Leaderboard & Profile Data (The Dashboard Handshake)</h2>
+        <p><b>Target API Endpoints:</b> <br><code>GET /candidates/{job_id}/ranked</code>
+            <br><code>GET /candidates/{id}/breakdown</code></p>
+        <p><i>Note: The 6 keys in `breakdown_json` directly map to the 6 dimension charts you must build.</i></p>
+        <div class="code-block">{
+            "total_score": 85.5,
+            "z_score": 1.25,
+            "percentile": "Top 8%",
+            "source_mode": "auto_fetched",
+            "is_overridden": false,
+            "breakdown_json": {
+            "project_relevance": 21.5,
+            "skill_coverage": 18.0,
+            "authenticity_trust": 15.0,
+            "internship_relevance": 12.0,
+            "education_quality": 14.0,
+            "semantic_alignment": 5.0
+            },
+            "eligibility": {
+            "passed": true,
+            "failed_rules": []
+            }
+            }</div>
+    </div>
+
+    <div class="section" style="margin-top: 20px;">
+        <h2>3. Target Endpoints for UI Actions</h2>
+        <table>
+            <tr>
+                <th>Action</th>
+                <th>Endpoint</th>
+            </tr>
+            <tr>
+                <td>Trigger Auto-Fetch (Mode 1)</td>
+                <td><code>POST /intake/auto-fetch/{job_id}</code></td>
+            </tr>
+            <tr>
+                <td>Upload File (Mode 2)</td>
+                <td><code>POST /intake/manual-upload/{job_id}</code></td>
+            </tr>
+            <tr>
+                <td>HR Score Override</td>
+                <td><code>POST /candidates/{id}/override</code></td>
+            </tr>
+            <tr>
+                <td>Mark Final Outcome</td>
+                <td><code>POST /feedback/{id}/outcome</code></td>
+            </tr>
+        </table>
+        <p style="font-size: 0.9rem; margin-top: 15px;"><i>Note: All requests must include JWT Bearer Token.</i></p>
+    </div>
+
+    <div class="footer">
+        CRMS Project (2026) | Confidential Team Use Only
+    </div>
+</body>
+
+</html>
